@@ -3,7 +3,7 @@ export const categoriesData = [
       id: 1,
       name: "Home",
       image_uri:
-        "",
+        "https://rukminim2.flixcart.com/fk-p-flap/121/121/image/0492397449e17ed3.jpg?q=60",
     },
     {
       id: 2,

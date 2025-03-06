@@ -6,9 +6,25 @@ import { categoriesData,productData } from "./seedData.js";
 dotenv.config()
 async function seedDatabase(){ 
   try{ 
+   await mongoose.connect(process.env.MONGO_URL)
 
+   await Product.deleteMany({})
+   await Category.deleteMany({})
+   const categoryDocs=await Category.insertMany(categoriesData)
+ const categoryMap=categoryDocs.reduce((map,category)=>{ 
+  map[category.name]=category._id;
+  return map
+ })
+   const productWithCategoryIds=productData.map((product)=>({ 
+    ...product,
+    category: categoryMap[product.category],
+   }));
+   await Product.insertMany(productWithCategoryIds);
+   console.log("DATA SEEDED SUCCESSFULLY");
   }catch(error){ 
-
+   console.error("Error Seeding database:",error);
+  }finally{ 
+    mongoose.connection.close();
   }
 }
 seedDatabase()
