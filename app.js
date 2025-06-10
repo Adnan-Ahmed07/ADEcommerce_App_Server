@@ -14,7 +14,7 @@ const app = express();
 app.use(express.json());
 //Routes
 app.use('/user',userRoutes);
-app.use('/category',categoryRoutes);
+app.use('/categories',categoryRoutes);
 app.use('/product',productRoutes);
 app.use('/order',orderRoutes);
 
